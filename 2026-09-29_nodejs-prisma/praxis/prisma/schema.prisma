@@ -1,0 +1,48 @@
+// Prisma-Schema — Musik-Streaming-DB (Mini-Ausschnitt, UE 29.09.2026)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Label {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  kuenstler Kuenstler[]
+}
+
+model Kuenstler {
+  id      Int    @id @default(autoincrement())
+  name    String
+  labelId Int?
+  label   Label? @relation(fields: [labelId], references: [id])
+  songs   Song[]
+}
+
+model Song {
+  id          Int        @id @default(autoincrement())
+  titel       String
+  dauerSek    Int
+  kuenstlerId Int
+  kuenstler   Kuenstler  @relation(fields: [kuenstlerId], references: [id])
+  playlists   SongPlaylist[]
+}
+
+// N:M-Beziehung Song <-> Playlist über die implizite Zwischentabelle.
+model Playlist {
+  id    Int           @id @default(autoincrement())
+  name  String
+  songs SongPlaylist[]
+}
+
+// Join-Tabelle für N:M (Song viele, Playlist viele).
+model SongPlaylist {
+  songId     Int
+  playlistId Int
+  song       Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+
+  @@id([songId, playlistId])
+}

@@ -9,13 +9,17 @@ Projekt-Anweisung für Coding-Agenten in diesem Repository.
 
 Abgaben (Hausübungen) im Fach INFI (3AHWII X): Lösungen zu den vom Lehrer
 bereitgestellten HÜ-Ordnern, jeweils als Kopie der Ordnerstruktur
-(`2026-09-29_rep-ohne-node/`, `2026-10-06_normalisierung-3nf/`, ...).
+(`2026-09-29_rep-ohne-node/`, `2026-09-29_nodejs-prisma/`,
+`2026-10-06_normalformen/`, ...).
 
 ## Stack
 
 - Laufzeit: Deno (TypeScript).
 - Datenbank: SQLite (`sqlite3`-CLI, `node:sqlite`). Kein Node/npm/Prisma
   in den ohne-Node-HÜs.
+- Node/Prisma kommt nur dort zum Einsatz, wo die Aufgabe es verlangt:
+  `2026-09-29_nodejs-prisma/praxis/` und `2026-10-06_normalformen/praxis/`
+  (Prisma 7 + SQLite, `npm`, `node:test`).
 
 ## Regeln
 
@@ -31,5 +35,6 @@ bereitgestellten HÜ-Ordnern, jeweils als Kopie der Ordnerstruktur
 ## Befehle
 
 - Tests: `deno task test`
-- 3NF-Demo: `deno task demo` (2026-10-06)
+- Normalformen-Demo: `deno task demo` (2026-10-06_normalformen)
+- Prisma-Teil: `cd praxis && npm install && npm run db:migrate && npm run db:seed && npm test`
 - SQL ausführen: `sqlite3 <datei>.db < <skript>.sql`

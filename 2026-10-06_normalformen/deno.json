@@ -1,5 +1,6 @@
 {
   "nodeModulesDir": "none",
+  "exclude": ["praxis/"],
   "tasks": {
     "demo": "deno run --allow-read --allow-write demo.ts",
     "test": "deno test"

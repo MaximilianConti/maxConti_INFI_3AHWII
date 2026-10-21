@@ -1,0 +1,27 @@
+{
+  "name": "km5-02-normalformen-praxis",
+  "version": "1.0.0",
+  "description": "Prisma-7-Umsetzung der Normalformen-Zerlegungen (1NF-3NF), UE 2026-10-06",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:seed": "node src/seed.js",
+    "db:reset": "prisma migrate reset --force",
+    "run": "node src/queries.js",
+    "postinstall": "prisma generate"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/adapter-better-sqlite3": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "dotenv": "^18.0.4",
+    "prisma": "^7.10.0"
+  },
+  "allowScripts": {
+    "@prisma/engines@7.10.0": true,
+    "better-sqlite3@12.11.1": true,
+    "prisma@7.10.0": true
+  }
+}
