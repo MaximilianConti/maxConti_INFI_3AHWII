@@ -10,7 +10,7 @@ Projekt-Anweisung für Coding-Agenten in diesem Repository.
 Abgaben (Hausübungen) im Fach INFI (3AHWII X): Lösungen zu den vom Lehrer
 bereitgestellten HÜ-Ordnern, jeweils als Kopie der Ordnerstruktur
 (`2026-09-29_rep-ohne-node/`, `2026-09-29_nodejs-prisma/`,
-`2026-10-06_normalformen/`, ...).
+`2026-10-06_normalformen/`, `2026-10-13_allerlei/`, ...).
 
 ## Stack
 
