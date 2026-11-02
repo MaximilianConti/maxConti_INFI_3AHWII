@@ -28,11 +28,14 @@ natives `better-sqlite3`, npm-`latest` auf 8.0.0-RC) bleibt bewusst
 | `main_test.ts` | 3 Deno-Tests gegen Seed — erst `sqlite3 test-mini.db < seed-musik-mini.sql`, dann `deno task test` |
 | `deno.json` | `"nodeModulesDir": "none"` — ohne Node/npm-Imports beweisbar |
 | `leseauftrag.md` | dev.to-Artikel gemeinsam lesen + 6 Fragen (Frage 6 = HÜ) |
+| `auffrischung.sql` | 5 Auffrischungs-Queries mit Kommentaren |
+| `nachweis-queries.md` | **Ausführungsnachweis** aller 5 Queries gegen `musik-mini.db` + Deno-Tests |
 
 ## HÜ bis 06.10.
 
-1. Die 5 Auffrischungs-Queries aus Lesson 0001 §4 als `.sql`-Datei (je ein Kommentar, was sie beantwortet).
-2. Leseauftrag Frage 6 schriftlich (5–6 Sätze).
+1. Die 5 Auffrischungs-Queries aus Lesson 0001 §4 als `.sql`-Datei (je ein Kommentar, was sie beantwortet) → [`auffrischung.sql`](./auffrischung.sql).
+2. Leseauftrag Frage 6 schriftlich (5–6 Sätze) → [`leseauftrag-frage6.md`](./leseauftrag-frage6.md).
+3. Nachweis der Query-Ausführung gegen die Datenbank → [`nachweis-queries.md`](./nachweis-queries.md).
 
 ## KM-Bezug
 
