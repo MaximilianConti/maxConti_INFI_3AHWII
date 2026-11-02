@@ -51,7 +51,11 @@ npm run run
 npm test
 ```
 
-### Konsolenausgabe `npm run run` (Screenshot-Ersatz, Originalausgabe)
+### Screenshot Konsolenausgabe (`npm run run` & `npm test`)
+
+![Screenshot Konsolenausgabe und Tests](screenshot.png)
+
+### Konsolenausgabe `npm run run` (Transkript)
 
 ```
 1) Top-Künstler:           [ { name: 'Nova', tracks: 3 },
