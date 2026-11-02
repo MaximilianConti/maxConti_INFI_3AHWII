@@ -44,14 +44,14 @@ db.select({ n: count() }).from(album).where(eq(album.artistId, 1))
 
 * **Spaltenliste:**
   Es wird explizit ein Projektions-Objekt übergeben: `{ n: count() }`.
-  Drizzle generiert dafür `count() as "n"` (bzw. `count()`).
+  Drizzle generiert dafür `count(*) as "n"` (Drizzle übersetzt `count()` standardmäßig zu `count(*)`).
 * **WHERE-Klausel:**
   Im Schema ist das Feld als `artistId: integer("artist_id")` definiert. Drizzle übersetzt den TypeScript-Attributnamen `album.artistId` typsicher auf die physische Datenbankspalte `"album"."artist_id" = ?`.
 * **Parameter:**
   `[1]`
 * **Erzeugtes SQL (Drizzle `toSQL()`):**
   ```sql
-  select count() as "n" from "album" where "album"."artist_id" = ?
+  select count(*) as "n" from "album" where "album"."artist_id" = ?
   ```
   Parameter: `[1]`
 * **Rückgabetyp:** `Array<{ n: number }>`
