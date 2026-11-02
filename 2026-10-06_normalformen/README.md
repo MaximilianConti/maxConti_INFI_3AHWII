@@ -36,7 +36,7 @@
 | `loesung.md` | **meine Lösung**: Vorhersage, Zerlegung, 2 eigene Tabellen, Demo-Nachweis, Prisma-Umsetzung |
 | `zerlegung.sql` | alle Zerlegungen als lauffähiges SQLite-Skript |
 | `seed-normalisierung.sql` | alle Lesson-Tabellen, denormalisiert **und** normalisiert |
-| `demo.ts`, `demo_test.ts` | Anomalie-Demo (Deno + `node:sqlite`) — 5 Konsolenzeilen, 4 Tests |
+| `demo.ts`, `demo_test.ts` | Anomalie-Demo (Deno + `node:sqlite`) — Lesson- + eigene Tabellen (10 Konsolenzeilen, 6 Tests) |
 | `praxis/` | Prisma-7-Umsetzung der Zerlegungen (Schema, Migration, Seed, 8 Queries, 8 Tests) |
 
 ## Ausführen
@@ -44,8 +44,8 @@
 ### Deno-Teil (Demo, ohne Node)
 
 ```bash
-deno task demo     # 5 Konsolenzeilen: 1NF, 1NF-Fix, 2NF, 2NF-Fix, 3NF
-deno task test     # 4 passed
+deno task demo     # 10 Konsolenzeilen: 1NF, 2NF, 3NF inkl. eigener HÜ-Tabellen
+deno task test     # 6 passed
 ```
 
 ### Node/Prisma-Teil (Umsetzung)

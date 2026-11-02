@@ -232,7 +232,7 @@ Damit das Bild vollständig ist, enthält `zerlegung.sql` zusätzlich:
 
 ## 4. Demo — Nachweis
 
-`deno task demo` im Beispielprojekt (hier im HÜ-Ordner mitgeliefert):
+Vollständige Ausführung von `demo.ts` (Lesson-Tabellen + eigene HÜ-Tabellen) via `deno task demo`:
 
 ```
 1NF: WHERE hobbys = 'Schwimmen' findet 0 Zeilen (die Zelle ist eine Liste).
@@ -240,9 +240,14 @@ Damit das Bild vollständig ist, enthält `zerlegung.sql` zusätzlich:
 2NF: song_id 1 hat 2 verschiedene Titel (Titel hängt nur an song_id).
 2NF-Fix: der Titel steht 1 Mal fuer song_id 1.
 3NF: PLZ 1020 hat 2 verschiedene Orte (Ort hängt an PLZ).
+3NF-Fix: PLZ 1020 steht 1 Mal in Tabelle plz.
+2NF (eigene Tabelle bestellposition): produkt_id 42 hat 2 verschiedene Produktnamen (partielle Abhängigkeit).
+2NF-Fix: produkt_id 42 steht 1 Mal in Tabelle produkt.
+3NF (eigene Tabelle konto_denorm): BLZ 1000 hat 2 verschiedene Banknamen (transitive Abhängigkeit).
+3NF-Fix: BLZ 1000 steht 1 Mal in Tabelle blz.
 ```
 
-`deno task test` → **4 passed | 0 failed** (Deno-Tests des Beispielprojekts).
+`deno task test` → **6 passed | 0 failed** (alle 4 Lesson-Tests + 2 Tests zu den eigenen HÜ-Tabellen grün).
 
 ---
 

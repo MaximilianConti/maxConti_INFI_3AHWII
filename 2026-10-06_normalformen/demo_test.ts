@@ -1,4 +1,5 @@
-// demo_test.ts — Mini-Tests zu den drei Anomalien (Deno, ohne Node).
+// demo_test.ts — Tests zu den Normalisierungs-Anomalien (Deno, ohne Node).
+// Prüft Lesson-Tabellen und die beiden eigenen HÜ-Tabellen.
 // Laufen mit:  deno task test
 import { assertEquals } from "@std/assert";
 import { DatabaseSync } from "node:sqlite";
@@ -55,5 +56,47 @@ Deno.test("3NF-Fix: PLZ -> Ort steht genau einmal", () => {
     `SELECT COUNT(*) AS n FROM plz WHERE plz = '1020'`,
   ).get() as { n: number };
   assertEquals(row.n, 1);
+  db.close();
+});
+
+// Eigene HÜ-Tabelle 1: 2NF (bestellposition_prod_denorm)
+Deno.test("2NF (eigene HÜ-Tabelle): partielle Abhängigkeit erzeugt 2 Produktnamen", () => {
+  const db = new DatabaseSync(":memory:");
+  db.exec(
+    `CREATE TABLE bp(bestell_nr INTEGER, produkt_id INTEGER, produkt_name TEXT, PRIMARY KEY(bestell_nr, produkt_id))`,
+  );
+  db.prepare(`INSERT INTO bp VALUES (?, ?, ?)`).run(1001, 42, "Kopfhörer Pro");
+  db.prepare(`INSERT INTO bp VALUES (?, ?, ?)`).run(1002, 42, "Kopfhörer Pro (neu)");
+  const row = db.prepare(
+    `SELECT COUNT(DISTINCT produkt_name) AS n FROM bp WHERE produkt_id = 42`,
+  ).get() as { n: number };
+  assertEquals(row.n, 2);
+
+  // Fix: produkt-Tabelle
+  db.exec(`CREATE TABLE produkt(produkt_id INTEGER PRIMARY KEY, produkt_name TEXT)`);
+  db.prepare(`INSERT INTO produkt VALUES (?, ?)`).run(42, "Kopfhörer Pro");
+  const fix = db.prepare(`SELECT COUNT(*) AS n FROM produkt WHERE produkt_id = 42`).get() as { n: number };
+  assertEquals(fix.n, 1);
+  db.close();
+});
+
+// Eigene HÜ-Tabelle 2: 3NF (konto_denorm — SWP-Crossover)
+Deno.test("3NF (eigene HÜ-Tabelle): transitive Kette erzeugt 2 Banknamen fuer dieselbe BLZ", () => {
+  const db = new DatabaseSync(":memory:");
+  db.exec(
+    `CREATE TABLE kd(iban TEXT PRIMARY KEY, blz TEXT, bankname TEXT)`,
+  );
+  db.prepare(`INSERT INTO kd VALUES (?, ?, ?)`).run("AT01", "1000", "Erste Bank");
+  db.prepare(`INSERT INTO kd VALUES (?, ?, ?)`).run("AT02", "1000", "Erste Bank neu");
+  const row = db.prepare(
+    `SELECT COUNT(DISTINCT bankname) AS n FROM kd WHERE blz = '1000'`,
+  ).get() as { n: number };
+  assertEquals(row.n, 2);
+
+  // Fix: blz-Tabelle
+  db.exec(`CREATE TABLE blz(blz TEXT PRIMARY KEY, bankname TEXT)`);
+  db.prepare(`INSERT INTO blz VALUES (?, ?)`).run("1000", "Erste Bank");
+  const fix = db.prepare(`SELECT COUNT(*) AS n FROM blz WHERE blz = '1000'`).get() as { n: number };
+  assertEquals(fix.n, 1);
   db.close();
 });
